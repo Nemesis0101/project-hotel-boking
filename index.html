@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/libs/libs.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
+    <title>hotel-booking</title>
+</head>
+
+<body>
+<div class="preloader">loading...please wait</div>
+<header class="header">
+
+    <section class="header-info">
+        <div class="header-info__inner main-inner">
+            <div class="header-info__contacts">
+                <span class="header-info__contacts-item header-info__contacts-item_theme-bolder">Questions? Need Help?</span>
+                <span class="header-info__contacts-item">Call us on (+123) 456 1500</span>
+            </div>
+            <div class="header-info__gifts">
+                <div class="gift">
+                    <svg class="gift__img" width="18" height="18" viewBox="0 0 18 18"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M3 8.25C3.41421 8.25 3.75 8.58579 3.75 9V15.75H14.25V9C14.25 8.58579 14.5858 8.25 15 8.25C15.4142 8.25 15.75 8.58579 15.75 9V16.5C15.75 16.9142 15.4142 17.25 15 17.25H3C2.58579 17.25 2.25 16.9142 2.25 16.5V9C2.25 8.58579 2.58579 8.25 3 8.25Z"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M0.75 5.25C0.75 4.83579 1.08579 4.5 1.5 4.5H16.5C16.9142 4.5 17.25 4.83579 17.25 5.25V9C17.25 9.41421 16.9142 9.75 16.5 9.75H1.5C1.08579 9.75 0.75 9.41421 0.75 9V5.25ZM2.25 6V8.25H15.75V6H2.25Z"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M9 4.5C9.41421 4.5 9.75 4.83579 9.75 5.25V16.5C9.75 16.9142 9.41421 17.25 9 17.25C8.58579 17.25 8.25 16.9142 8.25 16.5V5.25C8.25 4.83579 8.58579 4.5 9 4.5Z"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M5.625 2.25C5.32663 2.25 5.04048 2.36853 4.8295 2.5795C4.61853 2.79048 4.5 3.07663 4.5 3.375C4.5 3.67337 4.61853 3.95952 4.8295 4.1705C5.04048 4.38147 5.32663 4.5 5.625 4.5H7.99052C7.89896 4.26046 7.78306 3.99706 7.63971 3.73644C7.16799 2.87876 6.52043 2.25 5.625 2.25ZM9 5.25C9.73544 5.10291 9.73538 5.10266 9.73533 5.10239L9.73491 5.10028L9.73409 5.09627L9.73157 5.0842C9.72949 5.07438 9.72662 5.06104 9.7229 5.04441C9.71548 5.01118 9.7047 4.96474 9.69025 4.90697C9.66141 4.79157 9.61774 4.63007 9.5568 4.43764C9.43579 4.05549 9.24248 3.53801 8.95404 3.01356C8.39451 1.99624 7.35457 0.75 5.625 0.75C4.92881 0.75 4.26113 1.02656 3.76884 1.51884C3.27656 2.01113 3 2.67881 3 3.375C3 4.07119 3.27656 4.73887 3.76884 5.23116C4.26113 5.72344 4.92881 6 5.625 6H9C9.2247 6 9.43755 5.89926 9.58001 5.72549C9.72246 5.55173 9.7794 5.32272 9.73533 5.10239L9 5.25Z"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M9.04596 3.01356C9.60549 1.99624 10.6454 0.75 12.375 0.75C13.0712 0.75 13.7389 1.02656 14.2312 1.51884C14.7234 2.01113 15 2.67881 15 3.375C15 4.07119 14.7234 4.73887 14.2312 5.23116C13.7389 5.72344 13.0712 6 12.375 6H9C8.7753 6 8.56245 5.89926 8.41999 5.72549C8.27754 5.55173 8.2205 5.32324 8.26456 5.10291L9 5.25C8.26456 5.10291 8.26451 5.10318 8.26456 5.10291L8.26479 5.10177L8.26509 5.10028L8.26591 5.09627L8.26843 5.0842C8.27051 5.07438 8.27338 5.06104 8.2771 5.04441C8.28452 5.01118 8.2953 4.96474 8.30975 4.90697C8.33859 4.79157 8.38226 4.63007 8.4432 4.43764C8.56421 4.05549 8.75752 3.53801 9.04596 3.01356ZM10.0095 4.5H12.375C12.6734 4.5 12.9595 4.38147 13.1705 4.1705C13.3815 3.95952 13.5 3.67337 13.5 3.375C13.5 3.07663 13.3815 2.79048 13.1705 2.5795C12.9595 2.36853 12.6734 2.25 12.375 2.25C11.4796 2.25 10.832 2.87876 10.3603 3.73644C10.2169 3.99706 10.101 4.26046 10.0095 4.5ZM9.73518 5.39835C9.73513 5.39859 9.73514 5.39855 9.73518 5.39835V5.39835Z"/>
+                    </svg>
+                    <a href="#" class="gift__title">BTP Gift Card</a>
+                </div>
+                <div class="gift">
+                    <svg class="gift__img" width="18" height="18" viewBox="0 0 18 18"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M9.00002 0.75C9.28549 0.75 9.5462 0.912054 9.67255 1.16803L11.8157 5.50985L16.6085 6.21039C16.8909 6.25167 17.1254 6.44967 17.2135 6.72118C17.3015 6.99268 17.2278 7.29062 17.0233 7.48977L13.5559 10.867L14.3742 15.6382C14.4225 15.9196 14.3068 16.204 14.0758 16.3718C13.8448 16.5396 13.5386 16.5617 13.2859 16.4288L9.00002 14.1749L4.71411 16.4288C4.46142 16.5617 4.1552 16.5396 3.92422 16.3718C3.69324 16.204 3.57755 15.9196 3.62582 15.6382L4.44413 10.867L0.976722 7.48977C0.772259 7.29062 0.698554 6.99268 0.786587 6.72118C0.874621 6.44967 1.10913 6.25167 1.39155 6.21039L6.18433 5.50985L8.32749 1.16803C8.45385 0.912054 8.71456 0.75 9.00002 0.75ZM9.00002 3.19444L7.35505 6.52697C7.2459 6.7481 7.03501 6.90145 6.79099 6.93712L3.11133 7.47495L5.77332 10.0677C5.95023 10.24 6.03097 10.4884 5.98923 10.7318L5.36116 14.3938L8.65093 12.6637C8.86947 12.5488 9.13057 12.5488 9.34911 12.6637L12.6389 14.3938L12.0108 10.7318C11.9691 10.4884 12.0498 10.24 12.2267 10.0677L14.8887 7.47495L11.2091 6.93712C10.965 6.90145 10.7541 6.7481 10.645 6.52697L9.00002 3.19444Z"/>
+                    </svg>
+                    <a href="#" class="gift__title">Loyalty Program</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="header-content">
+        <div class="header-content__inner main-inner">
+            <img class="header-content__logo lozad" alt="logo" data-src="./img/src/icons/main-logo.png">
+            <div class="header-content__search">
+                <input type="text" class="header-content__input" placeholder="Search Location">
+                <button class="header-content__input-btn">
+                    <img class="header-content__input-btn-img lozad" alt="input-button-image"
+                         data-src="img/src/icons/search.svg">
+                </button>
+            </div>
+            <button class="header-content__cart-btn">
+                <img data-src="./img/src/icons/shopping-cart.svg" alt=" shopping-cart-image"
+                     class="header-content__cart-btn-img lozad">
+            </button>
+            <div class="profile">
+                <img class="profile__img lozad" data-src="./img/upload/icons/profile-img.png" alt="profile-image">
+                <div class="profile__name">Nathan</div>
+                <button class="profile__btn">
+                    <img class="profile__btn-img lozad" data-src="./img/src/icons/arrow-to-bottom.svg"
+                         alt="open-profile-image">
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="header-nav">
+        <div class="header-nav__inner main-inner">
+            <nav class="nav-panel">
+                <ul class="nav-panel__list">
+                    <li class="nav-panel__list-item"><a href="#" class="nav-panel__link">All Deals</a></li>
+                    <li class="nav-panel__list-item"><a href="#" class="nav-panel__link">Hotels</a></li>
+                    <li class="nav-panel__list-item"><a href="#" class="nav-panel__link">Activities</a></li>
+                    <li class="nav-panel__list-item"><a href="#" class="nav-panel__link">Hotel Day Packages</a></li>
+                    <li class="nav-panel__list-item"><a href="#" class="nav-panel__link">Restaurants</a></li>
+                    <li class="nav-panel__list-item"><a href="#" class="nav-panel__link">Events</a></li>
+                    <li class="nav-panel__list-item"><a href="#" class="nav-panel__link">Rodrigues</a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</header>
+
+
+<main class="main">
+
+    <section class="hotel-presentation">
+        <div class="hotel-presentation__inner main-inner">
+            <div class="hotel-presentation__bread-crumb">Home / Flash Offers / Grand Hilton Hotel</div>
+            <div class="hotel-presentation-header hotel-presentation__hotel-presentation-header">
+                <div class="hotel-presentation-header-info">
+                    <div class="hotel-presentation-header-info__stars">
+                        <img class="hotel-presentation-header-info__stars-item lozad" alt="rating-star-image"
+                             data-src="./img/src/icons/rating-star.svg">
+                        <img class="hotel-presentation-header-info__stars-item lozad" alt="rating-star-image"
+                             data-src="./img/src/icons/rating-star.svg">
+                        <img class="hotel-presentation-header-info__stars-item lozad" alt="rating-star-image"
+                             data-src="./img/src/icons/rating-star.svg">
+                        <img class="hotel-presentation-header-info__stars-item lozad" alt="rating-star-image"
+                             data-src="./img/src/icons/rating-star.svg">
+                        <img class="hotel-presentation-header-info__stars-item lozad" alt="rating-star-image"
+                             data-src="./img/src/icons/rating-star.svg">
+                    </div>
+                    <div class="hotel-presentation-header-info__offer">
+                        <h1 class="hotel-presentation-header-info__hotel-name">GRAND HILTON HOTEL</h1>
+                        <a href="#" class="hotel-presentation-header-info__btn button">Flash Offer</a>
+                    </div>
+                    <div class="hotel-presentation-header-info__hotel-descr">Half-Board/ All Inclusive + Complimentary
+                        Activities + Child Stays Free
+                    </div>
+                </div>
+                <div class="hotel-presentation-header-rating">
+                    <div class="hotel-presentation-header-rating__title">User Rattings</div>
+                    <div class="hotel-presentation-header-rating__score">4.5/5</div>
+                </div>
+            </div>
+            <div class="hotel-presentation__content">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="slide swiper-slide-1"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="slide swiper-slide-2"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="slide swiper-slide-3"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="slide swiper-slide-4"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hotel-presentation-info">
+                    <div class="hotel-presentation-booking">
+                        <div class="hotel-presentation-booking__info">
+                            <div class="hotel-presentation-booking__price-container">
+                                <div class="hotel-presentation-booking__price-title">price starts as</div>
+                                <div class="hotel-presentation-booking__price">$ 8,500</div>
+                                <div class="hotel-presentation-booking__price-term">per room / night</div>
+                            </div>
+                            <div class="hotel-presentation-booking__apartment-container">
+                                <div class="hotel-presentation-booking__apartment-item">
+                                    <img class="hotel-presentation-booking__apartment-img lozad" alt="guest-icon"
+                                         data-src="./img/src/icons/guest.svg">
+                                    <div class="hotel-presentation-booking__apartment-guests">2 x Guests</div>
+                                </div>
+                                <div class="hotel-presentation-booking__apartment-item">
+                                    <img class="hotel-presentation-booking__apartment-img lozad" alt="room-icon"
+                                         data-src="./img/src/icons/room.svg">
+                                    <div class="hotel-presentation-booking__apartment-rooms">1 x Room</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hotel-presentation-booking__contacts">
+                            <div class="hotel-presentation-booking__contacts-title">Quick Booking</div>
+                            <div class="hotel-presentation-booking__contacts-item">
+                                <img data-src="./img/src/icons/phone-call.svg" alt="call-icon"
+                                     class="hotel-presentation-booking__contacts-img lozad">
+                                <div class="hotel-presentation-booking__contacts-number">12100</div>
+                            </div>
+                        </div>
+                        <a href="#tabs" class="hotel-presentation-booking__btn button">View Other Options</a>
+                    </div>
+                    <div class="hotel-presentation__map" id="map"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hotel-info" id="tabs">
+        <div class="hotel-info__inner main-inner">
+            <div class="hotel-info-tabs">
+                <ul class="hotel-info-tabs-triggers">
+                    <li class="hotel-info-tabs-triggers__item">
+                        <a href="#tab-1" class="hotel-info-tabs-triggers__button">Package Summery</a>
+                    </li>
+                    <li class="hotel-info-tabs-triggers__item">
+                        <a href="#tab-2" class="hotel-info-tabs-triggers__button">Hotel Information</a>
+                    </li>
+                    <li class="hotel-info-tabs-triggers__item">
+                        <a href="#tab-3" class="hotel-info-tabs-triggers__button">Rooms</a>
+                    </li>
+                    <li class="hotel-info-tabs-triggers__item">
+                        <a href="#tab-4" class="hotel-info-tabs-triggers__button">Facilities & Activities</a>
+                    </li>
+                    <li class="hotel-info-tabs-triggers__item">
+                        <a href="#tab-5" class="hotel-info-tabs-triggers__button">Dining & Entertainment</a>
+                    </li>
+                    <li class="hotel-info-tabs-triggers__item">
+                        <a href="#tab-6" class="hotel-info-tabs-triggers__button">Reviews</a>
+                    </li>
+                    <li class="hotel-info-tabs-triggers__item">
+                        <a href="#tab-7" class="hotel-info-tabs-triggers__button">Questions & Answers</a>
+                    </li>
+                </ul>
+                <div class="hotel-info-tabs-content hotel-info-tabs__hotel-info-tabs-content">
+                    <div id="tab-1" class="hotel-info-tab content-active">
+                        <h2 class="hotel-info-tab__title">Package Summery</h2>
+                        <div class="hotel-info-list-container">
+                            <div class="hotel-info-list">
+                                <h3 class="hotel-info-list__title">Package Highlights</h3>
+                                <div class="hotel-info-list__inner">
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Half Board/ All Inclusive</li>
+                                        <li class="hotel-info-list__item">Child Under 11 Years Stay Free</li>
+                                        <li class="hotel-info-list__item">LUX* Me Spa</li>
+                                    </ul>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Luxurious 5-Star Hotel</li>
+                                        <li class="hotel-info-list__item">Banyan An Adult Only Zone</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hotel-info-list">
+                                <h3 class="hotel-info-list__title">Offer Details</h3>
+                                <div class="hotel-info-list__inner">
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Benefit from a special discounted CHILL’OUT
+                                            OFFER at Grand Hilton Hotel.
+                                        </li>
+                                    </ul>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item-date">10th March - 30th April 2020</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hotel-info-list hotel-info-list-package-details hotel-list-container__hotel-info-list-package-details">
+                            <h3 class="hotel-info-list__title">Package Summery Details</h3>
+                            <div class="hotel-info-list-package-details__columns">
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Purchase Inclusions</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Room as per selection</li>
+                                        <li class="hotel-info-list__item">Half Board or All Inclusive Meal Plan</li>
+                                        <li class="hotel-info-list__item">Complimentary Land & Water activities</li>
+                                        <li class="hotel-info-list__item">Child Under 11 years old stays free</li>
+                                        <li class="hotel-info-list__item">Free Wi-Fi</li>
+                                        <li class="hotel-info-list__item">Free Secure Parking</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Complimentary Land Based Activities</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Gym</li>
+                                        <li class="hotel-info-list__item">Beach Volley</li>
+                                        <li class="hotel-info-list__item">Table tennis</li>
+                                        <li class="hotel-info-list__item">Soccer balls</li>
+                                        <li class="hotel-info-list__item">Yoga</li>
+                                        <li class="hotel-info-list__item">Unlimited access to driving range</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Complimentary Water Based Activities</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Water skiing</li>
+                                        <li class="hotel-info-list__item">Windsurfing</li>
+                                        <li class="hotel-info-list__item">Pedal boats</li>
+                                        <li class="hotel-info-list__item">Kayaking</li>
+                                        <li class="hotel-info-list__item">Aqua Gym</li>
+                                        <li class="hotel-info-list__item">Glass bottom boat trips</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Meal Plan Available</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Half Board</li>
+                                        <li class="hotel-info-list__item">All Inclusive</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Entertainment</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Live music</li>
+                                        <li class="hotel-info-list__item">DJ & Mauritian Dance Show</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Check In & Check Out</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Check In Time 14:00</li>
+                                        <li class="hotel-info-list__item">Check Out Time 11:00</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="hotel-info-tab">
+                        <h2 class="hotel-info-tab__title">Package Summery</h2>
+                        <div class="hotel-info-list-container">
+                            <div class="hotel-info-list">
+                                <h3 class="hotel-info-list__title">Package Highlights</h3>
+                                <div class="hotel-info-list__inner">
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Half Board/ All Inclusive</li>
+                                        <li class="hotel-info-list__item">Child Under 11 Years Stay Free</li>
+                                        <li class="hotel-info-list__item">LUX* Me Spa</li>
+                                    </ul>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Luxurious 5-Star Hotel</li>
+                                        <li class="hotel-info-list__item">Banyan An Adult Only Zone</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hotel-info-list">
+                                <h3 class="hotel-info-list__title">Offer Details</h3>
+                                <div class="hotel-info-list__inner">
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Benefit from a special discounted CHILL’OUT
+                                            OFFER at Grand Hilton Hotel.
+                                        </li>
+                                    </ul>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item-date">10th March - 30th April 2020</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-3" class="hotel-info-tab">
+                        <h2 class="hotel-info-tab__title">Package Summery</h2>
+                        <div class="hotel-info-list hotel-info-list-package-details hotel-list-container__hotel-info-list-package-details">
+                            <h3 class="hotel-info-list__title">Package Summery Details</h3>
+                            <div class="hotel-info-list-package-details__columns">
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Purchase Inclusions</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Room as per selection</li>
+                                        <li class="hotel-info-list__item">Half Board or All Inclusive Meal Plan</li>
+                                        <li class="hotel-info-list__item">Complimentary Land & Water activities</li>
+                                        <li class="hotel-info-list__item">Child Under 11 years old stays free</li>
+                                        <li class="hotel-info-list__item">Free Wi-Fi</li>
+                                        <li class="hotel-info-list__item">Free Secure Parking</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Complimentary Land Based Activities</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Gym</li>
+                                        <li class="hotel-info-list__item">Beach Volley</li>
+                                        <li class="hotel-info-list__item">Table tennis</li>
+                                        <li class="hotel-info-list__item">Soccer balls</li>
+                                        <li class="hotel-info-list__item">Yoga</li>
+                                        <li class="hotel-info-list__item">Unlimited access to driving range</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Complimentary Water Based Activities</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Water skiing</li>
+                                        <li class="hotel-info-list__item">Windsurfing</li>
+                                        <li class="hotel-info-list__item">Pedal boats</li>
+                                        <li class="hotel-info-list__item">Kayaking</li>
+                                        <li class="hotel-info-list__item">Aqua Gym</li>
+                                        <li class="hotel-info-list__item">Glass bottom boat trips</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Meal Plan Available</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Half Board</li>
+                                        <li class="hotel-info-list__item">All Inclusive</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Entertainment</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Live music</li>
+                                        <li class="hotel-info-list__item">DJ & Mauritian Dance Show</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Check In & Check Out</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Check In Time 14:00</li>
+                                        <li class="hotel-info-list__item">Check Out Time 11:00</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-4" class="hotel-info-tab">
+                        <h2 class="hotel-info-tab__title">Package Summery</h2>
+                        <div class="hotel-info-list-container">
+                            <div class="hotel-info-list">
+                                <h3 class="hotel-info-list__title">Package Highlights</h3>
+                                <div class="hotel-info-list__inner">
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Half Board/ All Inclusive</li>
+                                        <li class="hotel-info-list__item">Child Under 11 Years Stay Free</li>
+                                        <li class="hotel-info-list__item">LUX* Me Spa</li>
+                                    </ul>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Luxurious 5-Star Hotel</li>
+                                        <li class="hotel-info-list__item">Banyan An Adult Only Zone</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hotel-info-list">
+                                <h3 class="hotel-info-list__title">Offer Details</h3>
+                                <div class="hotel-info-list__inner">
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Benefit from a special discounted CHILL’OUT
+                                            OFFER at Grand Hilton Hotel.
+                                        </li>
+                                    </ul>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item-date">10th March - 30th April 2020</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-5" class="hotel-info-tab">
+                        <h2 class="hotel-info-tab__title">Package Summery</h2>
+                        <div class="hotel-info-list-container">
+                            <div class="hotel-info-list">
+                                <h3 class="hotel-info-list__title">Package Highlights</h3>
+                                <div class="hotel-info-list__inner">
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Half Board/ All Inclusive</li>
+                                        <li class="hotel-info-list__item">Child Under 11 Years Stay Free</li>
+                                        <li class="hotel-info-list__item">LUX* Me Spa</li>
+                                    </ul>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Luxurious 5-Star Hotel</li>
+                                        <li class="hotel-info-list__item">Banyan An Adult Only Zone</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hotel-info-list">
+                                <h3 class="hotel-info-list__title">Offer Details</h3>
+                                <div class="hotel-info-list__inner">
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Benefit from a special discounted CHILL’OUT
+                                            OFFER at Grand Hilton Hotel.
+                                        </li>
+                                    </ul>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item-date">10th March - 30th April 2020</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hotel-info-list hotel-info-list-package-details hotel-list-container__hotel-info-list-package-details">
+                            <h3 class="hotel-info-list__title">Package Summery Details</h3>
+                            <div class="hotel-info-list-package-details__columns">
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Purchase Inclusions</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Room as per selection</li>
+                                        <li class="hotel-info-list__item">Half Board or All Inclusive Meal Plan</li>
+                                        <li class="hotel-info-list__item">Complimentary Land & Water activities</li>
+                                        <li class="hotel-info-list__item">Child Under 11 years old stays free</li>
+                                        <li class="hotel-info-list__item">Free Wi-Fi</li>
+                                        <li class="hotel-info-list__item">Free Secure Parking</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Complimentary Land Based Activities</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Gym</li>
+                                        <li class="hotel-info-list__item">Beach Volley</li>
+                                        <li class="hotel-info-list__item">Table tennis</li>
+                                        <li class="hotel-info-list__item">Soccer balls</li>
+                                        <li class="hotel-info-list__item">Yoga</li>
+                                        <li class="hotel-info-list__item">Unlimited access to driving range</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Complimentary Water Based Activities</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Water skiing</li>
+                                        <li class="hotel-info-list__item">Windsurfing</li>
+                                        <li class="hotel-info-list__item">Pedal boats</li>
+                                        <li class="hotel-info-list__item">Kayaking</li>
+                                        <li class="hotel-info-list__item">Aqua Gym</li>
+                                        <li class="hotel-info-list__item">Glass bottom boat trips</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Meal Plan Available</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Half Board</li>
+                                        <li class="hotel-info-list__item">All Inclusive</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Entertainment</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Live music</li>
+                                        <li class="hotel-info-list__item">DJ & Mauritian Dance Show</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Check In & Check Out</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Check In Time 14:00</li>
+                                        <li class="hotel-info-list__item">Check Out Time 11:00</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-6" class="hotel-info-tab">
+                        <h2 class="hotel-info-tab__title">Package Summery</h2>
+                        <div class="hotel-info-list hotel-info-list-package-details hotel-list-container__hotel-info-list-package-details">
+                            <h3 class="hotel-info-list__title">Package Summery Details</h3>
+                            <div class="hotel-info-list-package-details__columns">
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Purchase Inclusions</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Room as per selection</li>
+                                        <li class="hotel-info-list__item">Half Board or All Inclusive Meal Plan</li>
+                                        <li class="hotel-info-list__item">Complimentary Land & Water activities</li>
+                                        <li class="hotel-info-list__item">Child Under 11 years old stays free</li>
+                                        <li class="hotel-info-list__item">Free Wi-Fi</li>
+                                        <li class="hotel-info-list__item">Free Secure Parking</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Complimentary Land Based Activities</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Gym</li>
+                                        <li class="hotel-info-list__item">Beach Volley</li>
+                                        <li class="hotel-info-list__item">Table tennis</li>
+                                        <li class="hotel-info-list__item">Soccer balls</li>
+                                        <li class="hotel-info-list__item">Yoga</li>
+                                        <li class="hotel-info-list__item">Unlimited access to driving range</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Complimentary Water Based Activities</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Water skiing</li>
+                                        <li class="hotel-info-list__item">Windsurfing</li>
+                                        <li class="hotel-info-list__item">Pedal boats</li>
+                                        <li class="hotel-info-list__item">Kayaking</li>
+                                        <li class="hotel-info-list__item">Aqua Gym</li>
+                                        <li class="hotel-info-list__item">Glass bottom boat trips</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Meal Plan Available</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Half Board</li>
+                                        <li class="hotel-info-list__item">All Inclusive</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Entertainment</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Live music</li>
+                                        <li class="hotel-info-list__item">DJ & Mauritian Dance Show</li>
+                                    </ul>
+                                </div>
+                                <div class="hotel-info-list__items-wrapper">
+                                    <h4 class="hotel-info-list__subtitle">Check In & Check Out</h4>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Check In Time 14:00</li>
+                                        <li class="hotel-info-list__item">Check Out Time 11:00</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-7" class="hotel-info-tab">
+                        <h2 class="hotel-info-tab__title">Package Summery</h2>
+                        <div class="hotel-info-list-container">
+                            <div class="hotel-info-list">
+                                <h3 class="hotel-info-list__title">Package Highlights</h3>
+                                <div class="hotel-info-list__inner">
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Half Board/ All Inclusive</li>
+                                        <li class="hotel-info-list__item">Child Under 11 Years Stay Free</li>
+                                        <li class="hotel-info-list__item">LUX* Me Spa</li>
+                                    </ul>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Luxurious 5-Star Hotel</li>
+                                        <li class="hotel-info-list__item">Banyan An Adult Only Zone</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hotel-info-list">
+                                <h3 class="hotel-info-list__title">Offer Details</h3>
+                                <div class="hotel-info-list__inner">
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item">Benefit from a special discounted CHILL’OUT
+                                            OFFER at Grand Hilton Hotel.
+                                        </li>
+                                    </ul>
+                                    <ul class="hotel-info-list__items">
+                                        <li class="hotel-info-list__item-date">10th March - 30th April 2020</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="packages">
+        <div class="packages__inner main-inner">
+            <h5 class="packages__title">Other Packages</h5>
+            <div class="packages__items">
+                <article class="package-card package-card_theme-large">
+                    <div class="package-card__offer-box wow animate__animated animate__slideInLeft">Flash Offer</div>
+                    <div class="package-card__img-wrapper">
+                        <img class="package-card__img package-card__img_theme-large lozad" alt="belle-mare-photo"
+                             data-src="./img/upload/hotel-blue-haven.jpg">
+                    </div>
+                    <div class="package-card__info package-card__info_theme-large">
+                        <h6 class="package-card__title">Hotel Blue Haven</h6>
+                        <p class="package-card__descr">Aute quis duis excepteur excepteur ipsum cat eiusmod consectetur
+                            enim laborum magna llit. Ipsum est fugiat velit ea llamco do esse ut in veniam sun in
+                            onsequat. Aute quis duis epteur excepteur ipsum occaecat eiusmod nsectetur enim laborum
+                            magna mollit. Ipsum est fugiat velit ea ullamco do</p>
+                        <div class="package-card__room-info package-card__room-info_theme-large">
+                            <img class="package-card__room-info-icon lozad" alt="map-pin"
+                                 data-src="./img/src/icons/map-pin.svg">
+                            <span class="package-card__room-info-text">1749 Wheeler Ridge  Delaware</span>
+                        </div>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="guest"
+                                 data-src="./img/src/icons/guest.svg">
+                            <span class="package-card__room-info-text">2 x Guests</span>
+                        </div>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="room"
+                                 data-src="./img/src/icons/room.svg">
+                            <span class="package-card__room-info-text">1 x Room</span>
+                        </div>
+                        <div class="package-card__old-cost package-card__old-cost_theme-large">$ 10,500</div>
+                        <div class="package-card__action">
+                            <div class="package-card__new-cost">$ 8,500</div>
+                            <a href="#" class="package-card__button button">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="package-card">
+                    <div class="package-card__offer-box wow animate__animated animate__slideInLeft">Flash Offer</div>
+                    <div class="package-card__img-wrapper">
+                        <img class="package-card__img lozad" alt="belle-mare-photo"
+                             data-src="./img/upload/hotel-belle-mare.jpg">
+                    </div>
+                    <div class="package-card__info">
+                        <h6 class="package-card__title">LUX* Belle Mare</h6>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="map-pin"
+                                 data-src="./img/src/icons/map-pin.svg">
+                            <span class="package-card__room-info-text">1749 Wheeler Ridge  Delaware</span>
+                        </div>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="guest"
+                                 data-src="./img/src/icons/guest.svg">
+                            <span class="package-card__room-info-text">2 x Guests</span>
+                        </div>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="room"
+                                 data-src="./img/src/icons/room.svg">
+                            <span class="package-card__room-info-text">1 x Room</span>
+                        </div>
+                        <div class="package-card__old-cost">$ 8,500</div>
+                        <div class="package-card__action">
+                            <div class="package-card__new-cost">$ 3,000</div>
+                            <a href="#" class="package-card__button button">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="package-card">
+                    <div class="package-card__offer-box wow animate__animated animate__slideInLeft">Flash Offer</div>
+                    <div class="package-card__img-wrapper">
+                        <img class="package-card__img lozad" alt="belle-mare-photo"
+                             data-src="./img/upload/hotel-white-palace.jpg">
+                    </div>
+                    <div class="package-card__info">
+                        <h6 class="package-card__title">White Palace</h6>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="map-pin"
+                                 data-src="./img/src/icons/map-pin.svg">
+                            <span class="package-card__room-info-text">1749 Wheeler Ridge  Delaware</span>
+                        </div>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="guest"
+                                 data-src="./img/src/icons/guest.svg">
+                            <span class="package-card__room-info-text">2 x Guests</span>
+                        </div>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="room"
+                                 data-src="./img/src/icons/room.svg">
+                            <span class="package-card__room-info-text">1 x Room</span>
+                        </div>
+                        <div class="package-card__old-cost">$ 10,500</div>
+                        <div class="package-card__action">
+                            <div class="package-card__new-cost">$ 9,500</div>
+                            <a href="#" class="package-card__button button">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="package-card">
+                    <div class="package-card__offer-box wow animate__animated animate__slideInLeft">Flash Offer</div>
+                    <div class="package-card__img-wrapper">
+                        <img class="package-card__img lozad" alt="belle-mare-photo"
+                             data-src="./img/upload/hotel-luxury-place.jpg">
+                    </div>
+                    <div class="package-card__info">
+                        <h6 class="package-card__title">Luxury Place</h6>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="map-pin"
+                                 data-src="./img/src/icons/map-pin.svg">
+                            <span class="package-card__room-info-text">1749 Wheeler Ridge  Delaware</span>
+                        </div>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="guest"
+                                 data-src="./img/src/icons/guest.svg">
+                            <span class="package-card__room-info-text">2 x Guests</span>
+                        </div>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="room"
+                                 data-src="./img/src/icons/room.svg">
+                            <span class="package-card__room-info-text">1 x Room</span>
+                        </div>
+                        <div class="package-card__old-cost">$ 4,500</div>
+                        <div class="package-card__action">
+                            <div class="package-card__new-cost">$ 2,500</div>
+                            <a href="#" class="package-card__button button">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="package-card">
+                    <div class="package-card__offer-box wow animate__animated animate__slideInLeft">Flash Offer</div>
+                    <div class="package-card__img-wrapper">
+                        <img class="package-card__img lozad" alt="belle-mare-photo"
+                             data-src="./img/upload/hotel-five-star.jpg">
+                    </div>
+                    <div class="package-card__info">
+                        <h6 class="package-card__title">Hotel Five Star</h6>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="map-pin"
+                                 data-src="./img/src/icons/map-pin.svg">
+                            <span class="package-card__room-info-text">1749 Wheeler Ridge  Delaware</span>
+                        </div>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="guest"
+                                 data-src="./img/src/icons/guest.svg">
+                            <span class="package-card__room-info-text">2 x Guests</span>
+                        </div>
+                        <div class="package-card__room-info">
+                            <img class="package-card__room-info-icon lozad" alt="room"
+                                 data-src="./img/src/icons/room.svg">
+                            <span class="package-card__room-info-text">1 x Room</span>
+                        </div>
+                        <div class="package-card__old-cost">$ 6,500</div>
+                        <div class="package-card__action">
+                            <div class="package-card__new-cost">$ 3,500</div>
+                            <a href="#" class="package-card__button button">Book Now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <section class="reviews">
+        <div class="reviews__inner main-inner">
+            <h5 class="reviews__title">What people thinks about us</h5>
+            <div class="slider-review reviews__slider-review">
+                <div class="slider-review__container">
+                    <div class="swiper-wrapper">
+                        <div class="review swiper-slide">
+                            <img class="review__img" alt="user-photo"
+                                 src="./img/upload/review-user-avatar.jpg">
+                            <div class="review__name">Megan Fox</div>
+                            <div class="review__date">Stayed 18 Nov, 2019</div>
+                            <div class="review__rating">
+                                <img class="review__rating-img" alt="rating-star"
+                                     src="./img/src/icons/rating-star.svg">
+                                <img class="review__rating-img" alt="rating-star"
+                                     src="./img/src/icons/rating-star.svg">
+                                <img class="review__rating-img" alt="rating-star"
+                                     src="./img/src/icons/rating-star.svg">
+                                <img class="review__rating-img" alt="rating-star"
+                                     src="./img/src/icons/rating-star.svg">
+                                <img class="review__rating-img" alt="rating-star"
+                                     src="./img/src/icons/rating-star.svg">
+                            </div>
+                            <p class="review__text">It was very nice hotel with cleanliness. Staff behavior was good and
+                                polite.
+                                They welcome us very well. Issue was only that Lift was not in working and we were
+                                allotted
+                                to 3rd
+                                floor and amenities articles were in corner of gallery which were giving bad feeling.
+                                Breakfast was
+                                good and support of the staff was also very nice. Location is not good as per
+                                atmosphere, it
+                                is very
+                                nearby most of the popular places but self location in a narrow street is not good.
+                                Overall
+                                it was a
+                                good experience and could recommend. </p>
+                        </div>
+                        <div class="review swiper-slide">
+                            <img class="review__img" alt="user-photo"
+                                 src="./img/upload/review-user-avatar-2.jpg">
+                            <div class="review__name">Fox Megan</div>
+                            <div class="review__date">Stayed 18 Nov, 2019</div>
+                            <div class="review__rating">
+                                <img class="review__rating-img" alt="rating-star"
+                                     src="./img/src/icons/rating-star.svg">
+                                <img class="review__rating-img" alt="rating-star"
+                                     src="./img/src/icons/rating-star.svg">
+                                <img class="review__rating-img" alt="rating-star"
+                                     src="./img/src/icons/rating-star.svg">
+                                <img class="review__rating-img" alt="rating-star"
+                                     src="./img/src/icons/rating-star.svg">
+                                <img class="review__rating-img" alt="rating-star"
+                                     src="./img/src/icons/rating-star.svg">
+                            </div>
+                            <p class="review__text">It was very nice hotel with cleanliness. Staff behavior was good and
+                                polite.
+                                They welcome us very well. Issue was only that Lift was not in working and we were
+                                allotted
+                                to 3rd
+                                floor and amenities articles were in corner of gallery which were giving bad feeling.
+                                Breakfast was
+                                good and support of the staff was also very nice. Location is not good as per
+                                atmosphere, it
+                                is very
+                                nearby most of the popular places but self location in a narrow street is not good.
+                                Overall
+                                it was a
+                                good experience and could recommend.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-review__button-prev">
+                <img class="slider-review-button__img lozad" alt="prev-slide"
+                     data-src="./img/src/icons/arrow-left.svg">
+            </button>
+            <button class="slider-review__button-next">
+                <img class="slider-review-button__img lozad" alt="next-slide"
+                     data-src="./img/src/icons/arrow-right.svg">
+            </button>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="newsletter__inner main-inner">
+            <div class="newsletter__content">
+                <div class="newsletter__title-group wow animate__animated animate__fadeIn">
+                    <div class="newsletter__suptitle">subscribe to our</div>
+                    <div class="newsletter__title">Newsletter</div>
+                </div>
+                <div class="newsletter__input-group">
+                    <input type="text" class="newsletter__input" placeholder="Your email address">
+                    <button class="newsletter__button button">Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="activities">
+        <div class="activities__inner main-inner">
+            <h5 class="activities__title">Other Activities</h5>
+            <div class="activities__content">
+                <div class="activities-box activities-box-1">
+                    <div class="activities-box__title">The curious corner of chamarel
+                    </div>
+                    <a href="#" class="activities-box__button button">Book Now</a>
+                </div>
+                <div class="activities-box activities-box-2">
+                    <div class="activities-box__title">Gymkhana club golf course
+                    </div>
+                    <a href="#" class="activities-box__button button">Book Now</a>
+                </div>
+                <div class="activities-box activities-box-3">
+                    <div class="activities-box__title">Tamarind falls hiking trip - full day
+                    </div>
+                    <a href="#" class="activities-box__button button">Book Now</a>
+                </div>
+                <div class="activities-box activities-box-4">
+                    <div class="activities-box__title">The blue marine discovery quest
+                    </div>
+                    <a href="#" class="activities-box__button button">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer__inner main-inner">
+
+        <section class="footer-nav">
+            <a href="#" class="footer-nav__logo-link">
+                <img class="footer-nav__logo" alt="logo" src="./img/src/icons/footer-logo.svg">
+            </a>
+            <div class="footer-nav__list-group">
+                <div class="footer-nav__list-title">ALL CATEGORIES</div>
+                <ul class="footer-nav__list">
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">All Deals</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Hotels</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Activities</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Spa Packages</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Hotel Day Packages</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Restaurants</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Fitness</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Rodrigues</a></li>
+                </ul>
+            </div>
+            <div class="footer-nav__list-group">
+                <div class="footer-nav__list-title">ADDITIONAL INFORMATION</div>
+                <ul class="footer-nav__list">
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">About Us</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Contact Us</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">How does it work?</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Frequently Asked Questions</a>
+                    </li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Deals.mu loyalty program</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Promote your Business on BTP</a>
+                    </li>
+                </ul>
+                <div class="social-list footer-nav__social-list">
+                    <div class="social-list__title">Social Network</div>
+                    <div class="social-list__icons-group">
+                        <a href="#" class="social-list__link">
+                            <svg class="social-list__icon" width="20" height="20" viewBox="0 0 20 20"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.001 0.00195312C4.47895 0.00195312 0.00195312 4.47895 0.00195312 10.001C0.00195312 14.991 3.65795 19.127 8.43895 19.88V12.892H5.89895V10.001H8.43895V7.79795C8.43895 5.28995 9.93195 3.90695 12.215 3.90695C13.309 3.90695 14.455 4.10195 14.455 4.10195V6.56095H13.191C11.951 6.56095 11.563 7.33295 11.563 8.12395V9.99895H14.334L13.891 12.89H11.563V19.878C16.344 19.129 20 14.992 20 10.001C20 4.47895 15.523 0.00195312 10.001 0.00195312Z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-list__link">
+                            <svg class="social-list__icon" width="21" height="21" viewBox="0 0 21 21"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.1831 10.3246L9.82477 9.22417C9.61897 9.12862 9.44992 9.23572 9.44992 9.46357V11.5363C9.44992 11.7641 9.61897 11.8712 9.82477 11.7757L12.182 10.6753C12.3889 10.5787 12.3889 10.4212 12.1831 10.3246ZM10.4999 0.419922C4.93282 0.419922 0.419922 4.93282 0.419922 10.4999C0.419922 16.067 4.93282 20.5799 10.4999 20.5799C16.067 20.5799 20.5799 16.067 20.5799 10.4999C20.5799 4.93282 16.067 0.419922 10.4999 0.419922ZM10.4999 14.5949C5.34022 14.5949 5.24992 14.1298 5.24992 10.4999C5.24992 6.87007 5.34022 6.40492 10.4999 6.40492C15.6596 6.40492 15.7499 6.87007 15.7499 10.4999C15.7499 14.1298 15.6596 14.5949 10.4999 14.5949Z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-list__link">
+                            <svg class="social-list__icon" width="20" height="20" viewBox="0 0 20 20"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 20C8.64583 20 7.35026 19.7363 6.11328 19.209C4.8763 18.6816 3.81185 17.972 2.91992 17.0801C2.02799 16.1882 1.31836 15.1237 0.791016 13.8867C0.263672 12.6497 0 11.3542 0 10C0 8.64583 0.263672 7.35026 0.791016 6.11328C1.31836 4.8763 2.02799 3.81185 2.91992 2.91992C3.81185 2.02799 4.8763 1.31836 6.11328 0.791016C7.35026 0.263672 8.64583 0 10 0C11.3542 0 12.6497 0.263672 13.8867 0.791016C15.1237 1.31836 16.1882 2.02799 17.0801 2.91992C17.972 3.81185 18.6816 4.8763 19.209 6.11328C19.7363 7.35026 20 8.64583 20 10C20 11.3542 19.7363 12.6497 19.209 13.8867C18.6816 15.1237 17.972 16.1882 17.0801 17.0801C16.1882 17.972 15.1237 18.6816 13.8867 19.209C12.6497 19.7363 11.3542 20 10 20ZM15 6.25C15 5.91146 14.8796 5.61849 14.6387 5.37109C14.3978 5.1237 14.1016 5 13.75 5H6.25C5.91146 5 5.61849 5.1237 5.37109 5.37109C5.1237 5.61849 5 5.91146 5 6.25V7.5H7.22656C7.98177 6.66667 8.90625 6.25 10 6.25C11.0938 6.25 12.0182 6.66667 12.7734 7.5H15V6.25ZM7.5 10C7.5 10.6901 7.74414 11.2793 8.23242 11.7676C8.7207 12.2559 9.3099 12.5 10 12.5C10.6901 12.5 11.2793 12.2559 11.7676 11.7676C12.2559 11.2793 12.5 10.6901 12.5 10C12.5 9.3099 12.2559 8.7207 11.7676 8.23242C11.2793 7.74414 10.6901 7.5 10 7.5C9.3099 7.5 8.7207 7.74414 8.23242 8.23242C7.74414 8.7207 7.5 9.3099 7.5 10ZM15 8.75H13.5156C13.6719 9.17969 13.75 9.59635 13.75 10C13.75 11.0417 13.3854 11.9271 12.6562 12.6562C11.9271 13.3854 11.0417 13.75 10 13.75C8.95833 13.75 8.07292 13.3854 7.34375 12.6562C6.61458 11.9271 6.25 11.0417 6.25 10C6.25 9.59635 6.32812 9.17969 6.48438 8.75H5V13.75C5 14.1016 5.12044 14.3978 5.36133 14.6387C5.60221 14.8796 5.89844 15 6.25 15H13.75C14.1016 15 14.3978 14.8796 14.6387 14.6387C14.8796 14.3978 15 14.1016 15 13.75V8.75Z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-nav__list-group">
+                <div class="footer-nav__list-title">LEGAL INFORMATION</div>
+                <ul class="footer-nav__list">
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Terms & Conditions</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Disclaimer</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Cancellation policy</a></li>
+                    <li class="footer-nav__list-item"><a class="footer-nav__list-link">Privacy</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="footer__contacts">
+            <div class="contact-details">
+                <div class="contact-details__title">Contact Details</div>
+                <div class="contact-details__subtitle">Feel free to contact us by phone, email or by our contact form
+                </div>
+                <div class="contact-details__group">
+                    <img class="contact-details__icon" src="./img/src/icons/location-pin.svg" alt="location-icon">
+                    <div class="contact-details__group-item">9748 Blossom Hill Rd undefined Lansing, Idaho 68545 United
+                        States
+                    </div>
+                </div>
+                <div class="contact-details__group">
+                    <img class="contact-details__icon" src="./img/src/icons/phone-call-2.svg" alt="call-icon">
+                    <div class="contact-details__group-list">
+                        <div class="contact-details__group-item">Tel (business hours) : 269 1500</div>
+                        <div class="contact-details__group-item">Tel (hotline) Monday - Saturday: 52-56-61-38 (08:00 am
+                            – 20:00 pm)
+                        </div>
+                        <div class="contact-details__group-item">Tel (hotline) Sunday: 52-56-61-38 (08:00 am – 14:00
+                            pm)
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-details__group">
+                    <img class="contact-details__icon" src="./img/src/icons/mail.svg" alt="mail-icon">
+                    <div class="contact-details__group-item">cherly.lawson@example.com</div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <div class="contact-form__title">Send us a message</div>
+                <form class="contact-form__inner">
+                    <div class="contact-form__input-group">
+                        <input type="text" class="contact-form__input" placeholder="Your Full Name*">
+                        <input type="text" class="contact-form__input" placeholder="Phone Number*">
+                    </div>
+                    <textarea class="contact-form__text-area" placeholder="Message"></textarea>
+                    <div class="contact-form__action">
+                        <button class="contact-form__button button" type="submit">Send</button>
+                        <div class="contact-form__notice">* Required Fields</div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <div class="footer-bottom-panel footer__footer-bottom-panel">
+            <nav class="footer-bottom-nav footer__footer-bottom-nav">
+                <ul class="footer-bottom-nav__list">
+                    <li class="footer-bottom-nav__list-item">
+                        <a href="#" class="footer-bottom-nav__list-link">Disclaimer </a>
+                    </li>
+                    <li class="footer-bottom-nav__list-item">
+                        <a href="#" class="footer-bottom-nav__list-link">Conditions of use</a>
+                    </li>
+                    <li class="footer-bottom-nav__list-item">
+                        <a href="#" class="footer-bottom-nav__list-link">Cancellation policy</a>
+                    </li>
+                </ul>
+            </nav>
+            <img class="footer-bottom-panel__img lozad" data-src="./img/src/payment-systems.png" alt="payment-systems">
+        </div>
+    </div>
+</footer>
+
+<script src="./js/main.js"></script>
+<script src="./js/wow.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    const observer = lozad();
+    observer.observe();
+</script>
+<script>
+    new WOW().init();
+</script>
+<script>
+    let swiper = new Swiper('.swiper-container', {
+        effect: 'fade',
+        autoplay: {},
+        loop: true,
+    });
+</script>
+<script>
+    let slider = new Swiper('.slider-review__container', {
+        navigation: {
+            nextEl: '.slider-review__button-next',
+            prevEl: '.slider-review__button-prev',
+        },
+        autoplay: {},
+        loop: true,
+    });
+</script>
+</body>
+
+</html>
